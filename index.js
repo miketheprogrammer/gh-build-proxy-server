@@ -98,13 +98,16 @@ function handleProcessError(repository) {
 function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
-  const query = querystring.parse(req.query);
+  const query = url.parse(req.url, true).query;
   const repository = getRepository(host, path);
+
   console.log(
       host
     , path
     , repository
+    , query
   );
+
   const doBuild = !serveReferences[repository] && !pauseReferences[repository];
   if (query.force) doBuild = true;
 
