@@ -1,0 +1,30 @@
+{
+  "local": true,
+  "letsEncrypt": {
+    "domains": ["*.mtp.com"],
+    "email": "michael.hernandez1988@gmail.com",
+    "acmeEnv": "staging-"
+  },
+  "defaultUserName": "miketheprogrammer",
+  "useSubdomain": true,
+  "usePath": false,
+  "ghMappingOverrides": {
+    "mtp.com": {
+      "repository": "miketheprogrammer/example"
+    },
+    "/": {
+      "repository": "miketheprogrammer/example"
+    },
+    "/examples/example/1": {
+      "repository": "miketheprogrammer/example"
+    },
+    "miketheprogrammer/example": {
+      "cmd": "yarn build",
+      "root": "./example",
+      "build": "./example/build"
+    },
+    "/examples/example/2": {
+      "repository": "miketheprogrammer/example"
+    }
+  }
+}
