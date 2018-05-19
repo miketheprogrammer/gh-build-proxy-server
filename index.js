@@ -64,7 +64,7 @@ function approveDomains(opts, certs, cb) {
   cb(null, { options: opts, certs: certs });
 }
 
-if (process.env.NODE_ENV !== 'prod' || config.local) {
+if (config.local || process.env.NODE_ENV !== 'prod') {
   http.createServer(greenlock.middleware(require('redirect-https')())).listen(80);
   pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
   if (err) {
