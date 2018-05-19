@@ -2,6 +2,7 @@ const path          = require('path');
 const os            = require('os');
 const http          = require('http');
 const https         = require('https');
+const url           = require('url');
 const querystring   = require('querystring');
 
 const { spawn, exec }   = require('child_process');
