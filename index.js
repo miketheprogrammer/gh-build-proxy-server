@@ -109,7 +109,7 @@ function handler(req, res) {
     , query
   );
 
-  const doBuild = !serveReferences[repository] && !pauseReferences[repository];
+  let doBuild = !serveReferences[repository] && !pauseReferences[repository];
   if (query.force) doBuild = true;
 
   if (doBuild) {
