@@ -2,6 +2,7 @@ const path          = require('path');
 const os            = require('os');
 const http          = require('http');
 const https         = require('https');
+const querystring   = require('querystring');
 
 const { spawn, exec }   = require('child_process');
 
@@ -97,8 +98,12 @@ function handleProcessError(repository) {
 function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
+  const query = querystring.parse(req.query);
   const repository = getRepository(host, path);
-  if (!serveReferences[repository] && !pauseReferences[repository]) {
+  const doBuild = !serveReferences[repository] && !pauseReferences[repository];
+  if (query.force) doBuild = true;
+
+  if (doBuild) {
     pauseReferences[repository] = true;
     console.log('downloading');
     downloadRepository(repository).then((result) => {
