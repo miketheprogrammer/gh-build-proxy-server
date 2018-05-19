@@ -100,6 +100,11 @@ function handler(req, res) {
   const path = req.url;
   const query = querystring.parse(req.query);
   const repository = getRepository(host, path);
+  console.log(
+      host
+    , path
+    , repository
+  );
   const doBuild = !serveReferences[repository] && !pauseReferences[repository];
   if (query.force) doBuild = true;
 
@@ -107,11 +112,6 @@ function handler(req, res) {
     pauseReferences[repository] = true;
     console.log('downloading');
     downloadRepository(repository).then((result) => {
-      console.log(
-          host
-        , path
-        , repository
-      );
       console.log('installing npm modules');
       installNpmModules(repository).then(() => {
         build(repository).then(() => {
