@@ -100,7 +100,13 @@ function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
   const query = url.parse(req.url, true).query;
-  const repository = getRepository(host, path, res);
+  try {
+    const repository = getRepository(host, path, res);
+  } catch (err) {
+    res.statusCode = 404;
+    res.end();
+    return;
+  }
 
   console.log(
       host
@@ -220,6 +226,7 @@ function getRepository(host, path, res) {
       const override = config.ghMappingOverrides[host];
       if (!override) {
         console.warn('Warning: Could not find mapping. Ending request with 404');
+        throw new Error("ERR_NO_MAPPING_FOR_BASE");
       }
       repository = override.repository;
     }
