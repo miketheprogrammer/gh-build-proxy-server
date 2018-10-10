@@ -9,7 +9,7 @@
   "useSubdomain": true,
   "usePath": false,
   "ghMappingOverrides": {
-    "mtp.com": {
+    "miketheprogrammer.com": {
       "repository": "miketheprogrammer/example"
     },
     "/": {
