@@ -1,8 +1,8 @@
 {
   "letsEncrypt": {
-    "domains": ["*.mtp.com"],
+    "domains": ["*.miketheprogrammer.com"],
     "email": "michael.hernandez1988@gmail.com",
-    "acmeEnv": "staging-"
+    "acmeEnv": ""
   },
   "defaultUserName": "miketheprogrammer",
   "useSubdomain": true,
@@ -13,6 +13,9 @@
     },
     "/": {
       "repository": "miketheprogrammer/example"
+    },
+    "/music": {
+      "repository": "miketheprogrammer/music"
     },
     "/examples/example/1": {
       "repository": "miketheprogrammer/example"
