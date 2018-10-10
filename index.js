@@ -100,7 +100,7 @@ function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
   const query = url.parse(req.url, true).query;
-  const repository = getRepository(host, path);
+  const repository = getRepository(host, path, res);
 
   console.log(
       host
@@ -211,7 +211,7 @@ async function downloadRepository(repository) {
   await download;
 }
 
-function getRepository(host, path) {
+function getRepository(host, path, res) {
   if (config.useSubdomain) {
     const parts = host.split('.');
     let repository;
@@ -220,8 +220,6 @@ function getRepository(host, path) {
       const override = config.ghMappingOverrides[host];
       if (!override) {
         console.warn('Warning: Could not find mapping. Ending request with 404');
-        res.statusCode = 404;
-        res.end();
       }
       repository = override.repository;
     }
