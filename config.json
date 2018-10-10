@@ -1,5 +1,4 @@
 {
-  "local": true,
   "letsEncrypt": {
     "domains": ["*.mtp.com"],
     "email": "michael.hernandez1988@gmail.com",
