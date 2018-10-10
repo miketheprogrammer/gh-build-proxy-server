@@ -100,8 +100,9 @@ function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
   const query = url.parse(req.url, true).query;
+  var repository;
   try {
-    const repository = getRepository(host, path, res);
+    repository = getRepository(host, path, res);
   } catch (err) {
     res.statusCode = 404;
     res.end();
