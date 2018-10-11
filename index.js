@@ -218,7 +218,7 @@ async function downloadRepository(repository) {
   await download;
 }
 
-function getRepository(host, path, res) {
+function getRepository(host, path) {
   if (config.useSubdomain) {
     const parts = host.split('.');
     let repository;
@@ -234,6 +234,13 @@ function getRepository(host, path, res) {
 
     if (parts.length === 3) {
       repository = config.defaultUserName + '/' + parts[0];
+      const override = config.ghMappingOverrides[host];
+      if (!override) {
+        console.warn('Warning: Could not find mapping. Using:', repository);
+      } else {
+        repository = override.repository;
+      }
+
     }
     return repository;
   }
