@@ -27,7 +27,7 @@ var greenlock = Greenlock.create({
 , email: config.letsEncrypt.email
 , challengeType: 'http-01'
 , challenge: require('le-challenge-fs').create({})
-, version: 'draft-11'
+, version: 'draft-12'
 , server: 'https://acme-' + acmeEnv + 'v02.api.letsencrypt.org/directory'
 , configDir: path.join(os.homedir(), 'acme/etc')
 // , store: require('le-store-certbot').create({

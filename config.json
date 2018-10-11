@@ -1,6 +1,6 @@
 {
   "letsEncrypt": {
-    "domains": ["*.miketheprogrammer.com"],
+    "domains": ["*.miketheprogrammer.com", "*.amandaroaf.me"],
     "email": "michael.hernandez1988@gmail.com",
     "acmeEnv": ""
   },
@@ -8,6 +8,17 @@
   "useSubdomain": true,
   "usePath": false,
   "ghMappingOverrides": {
+    "amandaroaf.me": {
+      "repository": "miketheprogrammer/a-web"
+    },
+    "www.amandaroaf.me": {
+      "repository": "miketheprogrammer/a-web"
+    },
+    "miketheprogrammer/a-web": {
+      "cmd": "yarn build",
+      "root": "./app",
+      "build": "./app/build"
+    },
     "miketheprogrammer.com": {
       "repository": "miketheprogrammer/example"
     },
