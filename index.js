@@ -18,11 +18,13 @@ const finalhandler  = require('finalhandler');
 
 const config        = require('./config.json')
 
+const express = require('express');
+const app = express();
+
 var acmeEnv = config.letsEncrypt.acmeEnv;
 var greenlock = Greenlock.create({
   agreeTos: true                      // Accept Let's Encrypt v2 Agreement
 , approveDomains: approveDomains
-// , approveDomains: ['example.mtp.com']
 , communityMember: true
 , email: config.letsEncrypt.email
 , challengeType: 'http-01'
@@ -72,11 +74,11 @@ if (process.env.NODE_ENV !== 'prod') {
   if (err) {
     throw err
   }
-  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, handler).listen(443)
+  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(443)
 })
 } else {
   http.createServer(greenlock.middleware(require('redirect-https')())).listen(80);
-  https.createServer(greenlock.tlsOptions, handler).listen(443);
+  https.createServer(greenlock.tlsOptions, app).listen(443);
 }
 
 
@@ -135,6 +137,8 @@ function handler(req, res) {
     return serve(repository, req, res);
   }
 }
+
+app.use(handler);
 
 function getSafeRepositoryFilePath(repository) {
   return './.' + repository.replace('/', '-');
