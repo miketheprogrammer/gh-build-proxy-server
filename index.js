@@ -98,7 +98,7 @@ function pauseUntilReference(repository, pollTime, req, res) {
   setTimeout(handler.bind(Object.create(null), req, res), pollTime);
 }
 
-function handleProcessError(repository, res) {
+function handleProcessError(repository, req, res) {
   return (e) => {
     console.error('Critical Error', e)
     console.log('removing pause reference');
@@ -142,9 +142,9 @@ function handler(req, res) {
       installNpmModules(repository).then(() => {
         build(repository).then(() => {
           serve(repository, req, res);
-        }).catch(handleProcessError(repository, res));
-      }).catch(handleProcessError(repository, res));
-    }).catch(handleProcessError(repository, res));
+        }).catch(handleProcessError(repository, req, res));
+      }).catch(handleProcessError(repository, req, res));
+    }).catch(handleProcessError(repository, req, res));
   } else {
     pauseUntilReference(repository, 100, req, res);
     return serve(repository, req, res);
@@ -222,7 +222,7 @@ function serve(repository, req, res) {
   _serve(req, res, finalhandler(req, res))
 }
 
-function serveDefault(repository, res) {
+function serveDefault(repository, req, res) {
   let _serve = serveReferences[repository];
   if (!_serve) {
     _serve = serveStatic('./default-site/', {'index': ['index.html', 'index.htm']});
