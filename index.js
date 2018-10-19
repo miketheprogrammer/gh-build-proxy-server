@@ -98,10 +98,11 @@ function pauseUntilReference(repository, pollTime, req, res) {
   setTimeout(handler.bind(Object.create(null), req, res), pollTime);
 }
 
-function handleProcessError(repository) {
+function handleProcessError(repository, res) {
   return (e) => {
     console.error('Critical Error', e)
     pauseReferences[repository] = undefined;
+    res.status(404).send('Page Not Found');
   }
 }
 
@@ -141,9 +142,9 @@ function handler(req, res) {
       installNpmModules(repository).then(() => {
         build(repository).then(() => {
           serve(repository, req, res);
-        }).catch(handleProcessError(repository));
-      }).catch(handleProcessError(repository));
-    }).catch(handleProcessError(repository));
+        }).catch(handleProcessError(repository, res));
+      }).catch(handleProcessError(repository, res));
+    }).catch(handleProcessError(repository, res));
   } else {
     pauseUntilReference(repository, 100, req, res);
     return serve(repository, req, res);
