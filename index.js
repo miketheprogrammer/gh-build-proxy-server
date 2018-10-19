@@ -1,3 +1,11 @@
+/*
+REMOVE THIS LINE WHEN WE GET A FULL CERT FOR WORDPRESS USING LETSENCRYPT
+*/
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+/*
+REMOVE ABOVE
+*/
+
 const path          = require('path');
 const os            = require('os');
 const http          = require('http');
