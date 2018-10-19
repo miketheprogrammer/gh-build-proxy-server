@@ -76,7 +76,7 @@ function approveDomains(opts, certs, cb) {
 }
 
 if (process.env.NODE_ENV !== 'prod') {
-  http.createServer(app).listen(80);
+  http.createServer(greenlock.middleware(require('redirect-https')())).listen(80);
   pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
   if (err) {
     throw err
@@ -84,7 +84,7 @@ if (process.env.NODE_ENV !== 'prod') {
   https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(443)
 })
 } else {
-  http.createServer(greenlock.middleware(require('redirect-https')())).listen(80);
+  http.createServer(app).listen(80);
   https.createServer(greenlock.tlsOptions, app).listen(443);
 }
 
