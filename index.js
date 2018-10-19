@@ -110,7 +110,7 @@ function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
   console
-  if (path.search('wp-admin') !== -1) {
+  if (path.search('wp-') !== -1) {
     return proxy.web(req, res, { target: 'https://localhost:8000' });
   }
   const query = url.parse(req.url, true).query;
