@@ -102,9 +102,7 @@ function handleProcessError(repository, res) {
   return (e) => {
     console.error('Critical Error', e)
     console.log('removing pause reference');
-    pauseReferences[repository] = undefined;
-    console.log('returning 404');
-    res.status(404).send('Page Not Found');
+    serveDefault(repository, res);
   }
 }
 
@@ -227,7 +225,7 @@ function serve(repository, req, res) {
 function serveDefault(repository, res) {
   let _serve = serveReferences[repository];
   if (!_serve) {
-    _serve = serveStatic('./default-site/'), {'index': ['index.html', 'index.htm']});
+    _serve = serveStatic('./default-site/', {'index': ['index.html', 'index.htm']});
     serveReferences[repository] = _serve;
   }
   _serve(req, res, finalhandler(req, res))
