@@ -224,6 +224,15 @@ function serve(repository, req, res) {
   _serve(req, res, finalhandler(req, res))
 }
 
+function serveDefault(repository, res) {
+  let _serve = serveReferences[repository];
+  if (!_serve) {
+    _serve = serveStatic('./default-site/'), {'index': ['index.html', 'index.htm']});
+    serveReferences[repository] = _serve;
+  }
+  _serve(req, res, finalhandler(req, res))
+}
+
 async function downloadRepository(repository) {
   let safeRepository = getSafeRepositoryFilePath(repository);
   let download = new Promise((resolve, reject) => {
