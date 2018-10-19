@@ -76,7 +76,7 @@ function approveDomains(opts, certs, cb) {
 }
 
 if (process.env.NODE_ENV !== 'prod') {
-  http.createServer(greenlock.middleware(require('redirect-https')())).listen(80);
+  http.createServer(app).listen(80);
   pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
   if (err) {
     throw err
@@ -109,8 +109,9 @@ function handleProcessError(repository) {
 function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
+  console
   if (path.search('wp-admin') !== -1) {
-    return proxy.web(req, res, { target: 'http://localhost:8080' });
+    return proxy.web(req, res, { target: 'http://miketheprogrammer:8080' });
   }
   const query = url.parse(req.url, true).query;
   var repository;
