@@ -111,7 +111,7 @@ function handler(req, res) {
   const path = req.url;
   console
   if (path.search('wp-admin') !== -1) {
-    return proxy.web(req, res, { target: 'https://localhost:8080' });
+    return proxy.web(req, res, { target: 'https://localhost:8000' });
   }
   const query = url.parse(req.url, true).query;
   var repository;
