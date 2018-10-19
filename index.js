@@ -102,7 +102,7 @@ function handleProcessError(repository, req, res) {
   return (e) => {
     console.error('Critical Error', e)
     console.log('removing pause reference');
-    serveDefault(repository, res);
+    serveDefault(repository, req, res);
   }
 }
 
