@@ -101,7 +101,9 @@ function pauseUntilReference(repository, pollTime, req, res) {
 function handleProcessError(repository, res) {
   return (e) => {
     console.error('Critical Error', e)
+    console.log('removing pause reference');
     pauseReferences[repository] = undefined;
+    console.log('returning 404');
     res.status(404).send('Page Not Found');
   }
 }
