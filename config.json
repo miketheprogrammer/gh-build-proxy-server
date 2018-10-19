@@ -19,8 +19,11 @@
       "root": "./app",
       "build": "./app/build"
     },
+    "www.miketheprogrammer.com": {
+      "repository": "miketheprogrammer/a-web"
+    },
     "miketheprogrammer.com": {
-      "repository": "miketheprogrammer/example"
+      "repository": "miketheprogrammer/a-web"
     },
     "/": {
       "repository": "miketheprogrammer/example"
