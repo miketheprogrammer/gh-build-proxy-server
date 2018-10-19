@@ -21,6 +21,13 @@ const config        = require('./config.json')
 const express = require('express');
 const app = express();
 
+const options = {}
+const proxy = httpProxy.createProxyServer(options);
+
+proxy.on('error', function(e) {
+  console.log('Proxy Error', e);
+});
+
 var acmeEnv = config.letsEncrypt.acmeEnv;
 var greenlock = Greenlock.create({
   agreeTos: true                      // Accept Let's Encrypt v2 Agreement
@@ -98,9 +105,13 @@ function handleProcessError(repository) {
   }
 }
 
+
 function handler(req, res) {
   const host = req.headers.host;
   const path = req.url;
+  if (path.search('wp-admin') !== -1) {
+    return proxy.web(req, res, { target: 'http://localhost:8080' });
+  }
   const query = url.parse(req.url, true).query;
   var repository;
   try {
