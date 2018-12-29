@@ -229,7 +229,7 @@ function serve(repository, req, res) {
       if (err) {
         return finalhandler(req, res)();
       }
-      let stream = fs.createReadStream(file));
+      let stream = fs.createReadStream(file);
       stream.pipe(res);
       stream.on('error', () => {
         return finalhandler(req, res)();
