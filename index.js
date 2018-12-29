@@ -220,9 +220,9 @@ function serve(repository, req, res) {
     serveReferences[repository] = _serve;
   }
   _serve(req, res, () => {
-    res.write(JSON.stringify(arguments));
-    finalhandler(req, res)();
-    res.end();
+    // res.write(JSON.stringify(arguments));
+    return finalhandler(req, res)();
+    // res.end();
     
   })
 }
