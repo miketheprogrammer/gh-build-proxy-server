@@ -219,7 +219,12 @@ function serve(repository, req, res) {
     _serve = serveStatic(path.join(getSafeRepositoryFilePath(repository), conf.build), {'index': ['index.html', 'index.htm']});
     serveReferences[repository] = _serve;
   }
-  _serve(req, res, finalhandler(req, res))
+  _serve(req, res, () => {
+    res.write(JSON.stringify(arguments));
+    finalhandler(req, res)();
+    res.end();
+    
+  })
 }
 
 function serveDefault(repository, req, res) {
