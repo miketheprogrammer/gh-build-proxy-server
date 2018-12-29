@@ -222,7 +222,7 @@ function serve(repository, req, res) {
   }
   _serve(req, res, () => {
     // res.write(JSON.stringify(arguments));
-    let file = path.join(getSafeRepositoryFilePath(repository), conf.build + '/index.html';
+    let file = path.join(getSafeRepositoryFilePath(repository), conf.build + '/index.html');
     console.log('checking for ', file, 'in final handler');
     fs.access(file, fs.constants.F_OK, (err) => {
       console.log(`${file} ${err ? 'does not exist' : 'exists'}`);
