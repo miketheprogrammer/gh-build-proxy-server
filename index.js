@@ -1,5 +1,6 @@
 const path          = require('path');
 const os            = require('os');
+const fs            = require('fs');
 const http          = require('http');
 const https         = require('https');
 const url           = require('url');
@@ -217,11 +218,25 @@ function serve(repository, req, res) {
   let _serve = serveReferences[repository];
   if (!_serve) {
     _serve = serveStatic(path.join(getSafeRepositoryFilePath(repository), conf.build), {'index': ['index.html', 'index.htm']});
-    serveReferences[repository] = _serve;
+    serveReferences[repository] = _serve; 
   }
   _serve(req, res, () => {
     // res.write(JSON.stringify(arguments));
-    return finalhandler(req, res)();
+    let file = path.join(getSafeRepositoryFilePath(repository), conf.build + '/index.html';
+    console.log('checking for ', file, 'in final handler');
+    fs.access(file, fs.constants.F_OK, (err) => {
+      console.log(`${file} ${err ? 'does not exist' : 'exists'}`);
+      if (err) {
+        return finalhandler(req, res)();
+      }
+      let stream = fs.createReadStream(file));
+      stream.pipe(res);
+      stream.on('error', () => {
+        return finalhandler(req, res)();
+      });
+    });
+    
+    
     // res.end();
     
   })
