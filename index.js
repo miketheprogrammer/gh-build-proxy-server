@@ -221,7 +221,16 @@ function serve(repository, req, res) {
     serveReferences[repository] = _serve; 
   }
   _serve(req, res, () => {
-    // res.write(JSON.stringify(arguments));
+    /**
+     * @EXPLANATION - The following handler is for Single Page Apps, where we want to link directly to pages.
+     * Linking directly requires that the index is found and served. This is different to the nature of
+     * bare bones static serve.
+     * @TODO - Add some configuration params for the control of this
+     * Some such params might be
+     * [static-routes(arrayof-routes-to-ignore-for-index.js)]
+     * [app-is-spa(boolean)]
+     * 
+     */
     let file = path.join(getSafeRepositoryFilePath(repository), conf.build + '/index.html');
     console.log('checking for ', file, 'in final handler');
     fs.access(file, fs.constants.F_OK, (err) => {
