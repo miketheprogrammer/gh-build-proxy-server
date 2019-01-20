@@ -20,27 +20,15 @@
       "build": "./app/build"
     },
     "www.miketheprogrammer.com": {
-      "repository": "miketheprogrammer/a-web"
-    },
-    "miketheprogrammer.com": {
-      "repository": "miketheprogrammer/a-web"
-    },
-    "/": {
       "repository": "miketheprogrammer/example"
     },
-    "/music": {
-      "repository": "miketheprogrammer/music"
-    },
-    "/examples/example/1": {
+    "miketheprogrammer.com": {
       "repository": "miketheprogrammer/example"
     },
     "miketheprogrammer/example": {
       "cmd": "yarn build",
       "root": "./example",
       "build": "./example/build"
-    },
-    "/examples/example/2": {
-      "repository": "miketheprogrammer/example"
     }
   }
 }
